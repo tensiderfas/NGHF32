@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Disc3, FileText, Inbox, Users } from "lucide-react";
+import { ArrowUpRight, FileText, Handshake, Inbox, Users } from "lucide-react";
 import { useStore } from "../../context/StoreContext";
 
 export function AdminDashboard() {
-  const { artists, releases, news, applications } = useStore();
+  const { artists, partners, news, applications } = useStore();
   const newApps = applications.filter((a) => a.status === "new");
 
   const cards = [
     { label: "Артисты", value: artists.length, to: "/nv-console/artists", icon: Users },
-    { label: "Релизы", value: releases.length, to: "/nv-console/releases", icon: Disc3 },
+    { label: "Партнёры", value: partners.length, to: "/nv-console/partners", icon: Handshake },
     { label: "Новости", value: news.length, to: "/nv-console/news", icon: FileText },
     {
       label: "Новые заявки",

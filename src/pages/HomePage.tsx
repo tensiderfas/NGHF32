@@ -6,22 +6,13 @@ import { Button } from "../components/ui/Button";
 import { SectionHeading } from "../components/ui/SectionHeading";
 import { Reveal, Stagger, StaggerItem } from "../components/ui/Reveal";
 import { ArtistCard } from "../components/artists/ArtistCard";
-import { ReleaseCard } from "../components/releases/ReleaseCard";
 import { PlatformMarquee } from "../components/home/PlatformMarquee";
 import { FaqAccordion } from "../components/home/FaqAccordion";
-import {
-  FAQ_ITEMS,
-  PARTNERS,
-  SERVICES,
-  STATS,
-} from "../data/defaultData";
+import { FAQ_ITEMS, SERVICES, STATS } from "../data/defaultData";
 
 export function HomePage() {
-  const { artists, releases, news, settings } = useStore();
+  const { artists, partners, news, settings } = useStore();
   const featuredArtists = artists.filter((a) => a.featured).slice(0, 4);
-  const latestReleases = [...releases]
-    .sort((a, b) => +new Date(b.date) - +new Date(a.date))
-    .slice(0, 4);
   const latestNews = news.slice(0, 3);
 
   return (
@@ -201,29 +192,6 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* RELEASES */}
-      <section className="border-t border-ink/6 bg-paper-soft py-24 md:py-32">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading
-              eyebrow="Каталог"
-              title="Последние релизы"
-              description="Новая музыка от артистов NIGHTVOLT — на всех площадках."
-            />
-            <Button to="/releases" variant="outline">
-              Все релизы
-            </Button>
-          </div>
-          <Stagger className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-            {latestReleases.map((r) => (
-              <StaggerItem key={r.id}>
-                <ReleaseCard release={r} />
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
-
       {/* ARTISTS */}
       <section className="bg-paper py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
@@ -285,7 +253,7 @@ export function HomePage() {
                 <h3 className="font-display text-2xl">Почему с нами</h3>
                 <ul className="mt-8 space-y-5">
                   {[
-                    "До 100% роялти на дистрибуции",
+                    "До 80% роялти на дистрибуции",
                     "Выход на 60+ площадок по миру",
                     "Честный договор без серых схем",
                     "Поддержка 24/7 и личный менеджер",
@@ -317,8 +285,8 @@ export function HomePage() {
               />
             </div>
             <Stagger className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:col-span-8">
-              {PARTNERS.map((p) => (
-                <StaggerItem key={p.name}>
+              {partners.map((p) => (
+                <StaggerItem key={p.id}>
                   <div className="flex aspect-[5/3] flex-col items-center justify-center rounded-2xl border border-ink/8 bg-white transition-colors hover:border-ink/15">
                     <span className="font-display text-2xl text-ink/80">
                       {p.letter}

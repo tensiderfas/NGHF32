@@ -1,7 +1,7 @@
 import { NavLink, Navigate, Outlet, useNavigate } from "react-router-dom";
 import {
-  Disc3,
   FileText,
+  Handshake,
   Inbox,
   LayoutDashboard,
   LogOut,
@@ -14,7 +14,7 @@ import { cn } from "../../utils/cn";
 const NAV = [
   { to: "/nv-console", label: "Обзор", icon: LayoutDashboard, end: true },
   { to: "/nv-console/artists", label: "Артисты", icon: Users },
-  { to: "/nv-console/releases", label: "Релизы", icon: Disc3 },
+  { to: "/nv-console/partners", label: "Партнёры", icon: Handshake },
   { to: "/nv-console/news", label: "Новости", icon: FileText },
   { to: "/nv-console/applications", label: "Заявки", icon: Inbox },
   { to: "/nv-console/settings", label: "Настройки", icon: Settings },

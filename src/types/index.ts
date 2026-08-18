@@ -11,16 +11,10 @@ export interface Artist {
   createdAt: string;
 }
 
-export interface Release {
+export interface Partner {
   id: string;
-  title: string;
-  artistId: string;
-  artistName: string;
-  cover: string;
-  date: string;
-  type: "single" | "ep" | "album";
-  link?: string;
-  featured?: boolean;
+  name: string;
+  letter: string;
 }
 
 export interface NewsItem {
@@ -56,7 +50,7 @@ export interface SiteSettings {
 
 export interface AdminState {
   artists: Artist[];
-  releases: Release[];
+  partners: Partner[];
   news: NewsItem[];
   applications: Application[];
   settings: SiteSettings;

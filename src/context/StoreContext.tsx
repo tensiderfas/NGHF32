@@ -11,29 +11,30 @@ import type {
   Application,
   Artist,
   NewsItem,
-  Release,
+  Partner,
   SiteSettings,
 } from "../types";
 import {
   DEFAULT_ARTISTS,
   DEFAULT_NEWS,
-  DEFAULT_RELEASES,
+  DEFAULT_PARTNERS,
   DEFAULT_SETTINGS,
 } from "../data/defaultData";
 
 const STORAGE_KEY = "nv_cms_v1";
 const AUTH_KEY = "nv_session_v1";
+const ADMIN_USER = "admin";
 const ADMIN_PASS = "nightvolt2025";
 
 interface StoreContextValue extends AdminState {
-  login: (password: string) => boolean;
+  login: (username: string, password: string) => boolean;
   logout: () => void;
   addArtist: (artist: Omit<Artist, "id" | "createdAt">) => void;
   updateArtist: (id: string, data: Partial<Artist>) => void;
   deleteArtist: (id: string) => void;
-  addRelease: (release: Omit<Release, "id">) => void;
-  updateRelease: (id: string, data: Partial<Release>) => void;
-  deleteRelease: (id: string) => void;
+  addPartner: (partner: Omit<Partner, "id">) => void;
+  updatePartner: (id: string, data: Partial<Partner>) => void;
+  deletePartner: (id: string) => void;
   addNews: (item: Omit<NewsItem, "id">) => void;
   updateNews: (id: string, data: Partial<NewsItem>) => void;
   deleteNews: (id: string) => void;
@@ -42,7 +43,6 @@ interface StoreContextValue extends AdminState {
   deleteApplication: (id: string) => void;
   updateSettings: (data: Partial<SiteSettings>) => void;
   getArtist: (id: string) => Artist | undefined;
-  getRelease: (id: string) => Release | undefined;
   getNews: (id: string) => NewsItem | undefined;
 }
 
@@ -59,7 +59,7 @@ function loadState(): Omit<AdminState, "isAuthenticated"> {
       const parsed = JSON.parse(raw);
       return {
         artists: parsed.artists ?? DEFAULT_ARTISTS,
-        releases: parsed.releases ?? DEFAULT_RELEASES,
+        partners: parsed.partners ?? DEFAULT_PARTNERS,
         news: parsed.news ?? DEFAULT_NEWS,
         applications: parsed.applications ?? [],
         settings: { ...DEFAULT_SETTINGS, ...(parsed.settings ?? {}) },
@@ -70,7 +70,7 @@ function loadState(): Omit<AdminState, "isAuthenticated"> {
   }
   return {
     artists: DEFAULT_ARTISTS,
-    releases: DEFAULT_RELEASES,
+    partners: DEFAULT_PARTNERS,
     news: DEFAULT_NEWS,
     applications: [],
     settings: DEFAULT_SETTINGS,
@@ -80,7 +80,7 @@ function loadState(): Omit<AdminState, "isAuthenticated"> {
 export function StoreProvider({ children }: { children: ReactNode }) {
   const initial = loadState();
   const [artists, setArtists] = useState<Artist[]>(initial.artists);
-  const [releases, setReleases] = useState<Release[]>(initial.releases);
+  const [partners, setPartners] = useState<Partner[]>(initial.partners);
   const [news, setNews] = useState<NewsItem[]>(initial.news);
   const [applications, setApplications] = useState<Application[]>(
     initial.applications
@@ -95,24 +95,24 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    const payload = { artists, releases, news, applications, settings };
+    const payload = { artists, partners, news, applications, settings };
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     } catch {
       /* ignore */
     }
-  }, [artists, releases, news, applications, settings]);
+  }, [artists, partners, news, applications, settings]);
 
   const value = useMemo<StoreContextValue>(
     () => ({
       artists,
-      releases,
+      partners,
       news,
       applications,
       settings,
       isAuthenticated,
-      login: (password: string) => {
-        if (password === ADMIN_PASS) {
+      login: (username: string, password: string) => {
+        if (username === ADMIN_USER && password === ADMIN_PASS) {
           setIsAuthenticated(true);
           try {
             sessionStorage.setItem(AUTH_KEY, "1");
@@ -149,16 +149,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       deleteArtist: (id) => {
         setArtists((prev) => prev.filter((a) => a.id !== id));
       },
-      addRelease: (release) => {
-        setReleases((prev) => [{ ...release, id: uid("r") }, ...prev]);
+      addPartner: (partner) => {
+        setPartners((prev) => [...prev, { ...partner, id: uid("p") }]);
       },
-      updateRelease: (id, data) => {
-        setReleases((prev) =>
-          prev.map((r) => (r.id === id ? { ...r, ...data } : r))
+      updatePartner: (id, data) => {
+        setPartners((prev) =>
+          prev.map((p) => (p.id === id ? { ...p, ...data } : p))
         );
       },
-      deleteRelease: (id) => {
-        setReleases((prev) => prev.filter((r) => r.id !== id));
+      deletePartner: (id) => {
+        setPartners((prev) => prev.filter((p) => p.id !== id));
       },
       addNews: (item) => {
         setNews((prev) => [{ ...item, id: uid("n") }, ...prev]);
@@ -194,10 +194,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setSettings((prev) => ({ ...prev, ...data }));
       },
       getArtist: (id) => artists.find((a) => a.id === id),
-      getRelease: (id) => releases.find((r) => r.id === id),
       getNews: (id) => news.find((n) => n.id === id),
     }),
-    [artists, releases, news, applications, settings, isAuthenticated]
+    [artists, partners, news, applications, settings, isAuthenticated]
   );
 
   return (

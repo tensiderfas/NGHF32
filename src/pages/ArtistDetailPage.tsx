@@ -1,13 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useStore } from "../context/StoreContext";
-import { ReleaseCard } from "../components/releases/ReleaseCard";
 import { Button } from "../components/ui/Button";
 import { Reveal, Stagger, StaggerItem } from "../components/ui/Reveal";
 
 export function ArtistDetailPage() {
   const { id } = useParams();
-  const { getArtist, releases, artists } = useStore();
+  const { getArtist, artists } = useStore();
   const artist = getArtist(id || "");
 
   if (!artist) {
@@ -21,7 +20,6 @@ export function ArtistDetailPage() {
     );
   }
 
-  const artistReleases = releases.filter((r) => r.artistId === artist.id);
   const related = artists.filter((a) => a.id !== artist.id).slice(0, 3);
 
   return (
@@ -82,21 +80,6 @@ export function ArtistDetailPage() {
           </Reveal>
         </div>
       </section>
-
-      {artistReleases.length > 0 && (
-        <section className="bg-paper py-20 md:py-28">
-          <div className="mx-auto max-w-7xl px-5 md:px-8">
-            <h2 className="font-display text-3xl md:text-4xl">Релизы</h2>
-            <Stagger className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-              {artistReleases.map((r) => (
-                <StaggerItem key={r.id}>
-                  <ReleaseCard release={r} />
-                </StaggerItem>
-              ))}
-            </Stagger>
-          </div>
-        </section>
-      )}
 
       {related.length > 0 && (
         <section className="border-t border-ink/6 bg-paper-soft py-20 md:py-28">

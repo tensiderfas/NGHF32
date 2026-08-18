@@ -8,7 +8,6 @@ import { Button } from "../ui/Button";
 const NAV = [
   { to: "/", label: "Главная" },
   { to: "/artists", label: "Артисты" },
-  { to: "/releases", label: "Релизы" },
   { to: "/distribution", label: "Дистрибуция" },
   { to: "/about", label: "О нас" },
   { to: "/news", label: "Новости" },

@@ -7,7 +7,6 @@ const LINKS = [
     title: "Навигация",
     items: [
       { to: "/artists", label: "Артисты" },
-      { to: "/releases", label: "Релизы" },
       { to: "/distribution", label: "Дистрибуция" },
       { to: "/about", label: "О нас" },
     ],

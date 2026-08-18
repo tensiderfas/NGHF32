@@ -4,6 +4,7 @@ import { useStore } from "../../context/StoreContext";
 
 export function AdminLogin() {
   const { login, isAuthenticated } = useStore();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
@@ -13,7 +14,7 @@ export function AdminLogin() {
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const ok = login(password);
+    const ok = login(username, password);
     if (!ok) {
       setError(true);
       setPassword("");
@@ -38,18 +39,32 @@ export function AdminLogin() {
           </h1>
         </div>
         <input
+          type="text"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+            setError(false);
+          }}
+          placeholder="Логин"
+          autoFocus
+          autoComplete="username"
+          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/25"
+        />
+        <input
           type="password"
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
             setError(false);
           }}
-          placeholder="Access key"
-          autoFocus
-          className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/25"
+          placeholder="Пароль"
+          autoComplete="current-password"
+          className="mt-3 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/25 focus:border-white/25"
         />
         {error && (
-          <p className="mt-2 text-xs text-red-400/80">Неверный ключ доступа</p>
+          <p className="mt-2 text-xs text-red-400/80">
+            Неверный логин или пароль
+          </p>
         )}
         <button
           type="submit"

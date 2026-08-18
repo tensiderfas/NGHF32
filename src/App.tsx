@@ -4,8 +4,6 @@ import { Layout } from "./components/layout/Layout";
 import { HomePage } from "./pages/HomePage";
 import { ArtistsPage } from "./pages/ArtistsPage";
 import { ArtistDetailPage } from "./pages/ArtistDetailPage";
-import { ReleasesPage } from "./pages/ReleasesPage";
-import { ReleaseDetailPage } from "./pages/ReleaseDetailPage";
 import { DistributionPage } from "./pages/DistributionPage";
 import { AboutPage } from "./pages/AboutPage";
 import { NewsPage } from "./pages/NewsPage";
@@ -18,7 +16,7 @@ import { AdminLogin } from "./pages/admin/AdminLogin";
 import { AdminLayout } from "./pages/admin/AdminLayout";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminArtists } from "./pages/admin/AdminArtists";
-import { AdminReleases } from "./pages/admin/AdminReleases";
+import { AdminPartners } from "./pages/admin/AdminPartners";
 import { AdminNews } from "./pages/admin/AdminNews";
 import { AdminApplications } from "./pages/admin/AdminApplications";
 import { AdminSettings } from "./pages/admin/AdminSettings";
@@ -33,7 +31,7 @@ export default function App() {
           <Route path="/nv-console" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="artists" element={<AdminArtists />} />
-            <Route path="releases" element={<AdminReleases />} />
+            <Route path="partners" element={<AdminPartners />} />
             <Route path="news" element={<AdminNews />} />
             <Route path="applications" element={<AdminApplications />} />
             <Route path="settings" element={<AdminSettings />} />
@@ -43,8 +41,6 @@ export default function App() {
             <Route index element={<HomePage />} />
             <Route path="artists" element={<ArtistsPage />} />
             <Route path="artists/:id" element={<ArtistDetailPage />} />
-            <Route path="releases" element={<ReleasesPage />} />
-            <Route path="releases/:id" element={<ReleaseDetailPage />} />
             <Route path="distribution" element={<DistributionPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="news" element={<NewsPage />} />

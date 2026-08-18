@@ -1,4 +1,4 @@
-import type { Artist, Release, NewsItem, SiteSettings } from "../types";
+import type { Artist, NewsItem, Partner, SiteSettings } from "../types";
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   heroTitle: "YOUR MUSIC\nEVERYWHERE",
@@ -89,75 +89,6 @@ export const DEFAULT_ARTISTS: Artist[] = [
   },
 ];
 
-export const DEFAULT_RELEASES: Release[] = [
-  {
-    id: "r1",
-    title: "Midnight Protocol",
-    artistId: "a2",
-    artistName: "KAIRO",
-    cover:
-      "https://images.pexels.com/photos/13312404/pexels-photo-13312404.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    date: "2026-02-14",
-    type: "album",
-    featured: true,
-  },
-  {
-    id: "r2",
-    title: "Soft Static",
-    artistId: "a1",
-    artistName: "LUNA GREY",
-    cover:
-      "https://images.pexels.com/photos/13327044/pexels-photo-13327044.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    date: "2026-01-28",
-    type: "ep",
-    featured: true,
-  },
-  {
-    id: "r3",
-    title: "Glass Garden",
-    artistId: "a3",
-    artistName: "MIRA SOL",
-    cover:
-      "https://images.pexels.com/photos/13312405/pexels-photo-13312405.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    date: "2025-12-05",
-    type: "single",
-    featured: true,
-  },
-  {
-    id: "r4",
-    title: "Low Flame",
-    artistId: "a6",
-    artistName: "ASH & IVY",
-    cover:
-      "https://images.pexels.com/photos/25034239/pexels-photo-25034239.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    date: "2025-11-18",
-    type: "ep",
-    featured: false,
-  },
-  {
-    id: "r5",
-    title: "Signal Lost",
-    artistId: "a5",
-    artistName: "ELLIOT VANE",
-    cover:
-      "https://images.pexels.com/photos/13312406/pexels-photo-13312406.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    date: "2025-10-30",
-    type: "single",
-    featured: false,
-  },
-  {
-    id: "r6",
-    title: "Broken Compass",
-    artistId: "a4",
-    artistName: "NOVA REED",
-    cover:
-      "https://images.pexels.com/photos/13327045/pexels-photo-13327045.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-    date: "2025-09-12",
-    type: "album",
-    featured: false,
-  },
-];
-
 export const DEFAULT_NEWS: NewsItem[] = [
   {
     id: "n1",
@@ -216,15 +147,15 @@ export const PLATFORMS = [
   "Audiomack",
 ];
 
-export const PARTNERS = [
-  { name: "Believe", letter: "B" },
-  { name: "Soyuz Music", letter: "S" },
-  { name: "Gamma", letter: "G" },
-  { name: "Effective", letter: "E" },
-  { name: "Velvet", letter: "V" },
-  { name: "Osuma", letter: "O" },
-  { name: "Coloz", letter: "C" },
-  { name: "Rocket", letter: "R" },
+export const DEFAULT_PARTNERS: Partner[] = [
+  { id: "p1", name: "Believe", letter: "B" },
+  { id: "p2", name: "Soyuz Music", letter: "S" },
+  { id: "p3", name: "Gamma", letter: "G" },
+  { id: "p4", name: "Effective", letter: "E" },
+  { id: "p5", name: "Velvet", letter: "V" },
+  { id: "p6", name: "Osuma", letter: "O" },
+  { id: "p7", name: "Coloz", letter: "C" },
+  { id: "p8", name: "Rocket", letter: "R" },
 ];
 
 export const FAQ_ITEMS = [
@@ -254,7 +185,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "Какой процент роялти остаётся артисту?",
-    a: "На дистрибуции — до 100% роялти артисту (за вычетом комиссии площадок). На лейбл-сделках условия индивидуальны и всегда обсуждаются до подписания.",
+    a: "На дистрибуции — до 80% роялти артисту (за вычетом комиссии площадок). На лейбл-сделках условия индивидуальны и всегда обсуждаются до подписания.",
   },
   {
     q: "Вы работаете только с определёнными жанрами?",
@@ -267,7 +198,7 @@ export const SERVICES = [
     id: "dist",
     title: "Дистрибуция",
     desc: "Доставка музыки на 60+ площадок по миру. Быстро, прозрачно, с полным контролем метаданных и выплат.",
-    points: ["60+ платформ", "До 100% роялти", "ISRC / UPC", "Выплаты без задержек"],
+    points: ["60+ платформ", "До 80% роялти", "ISRC / UPC", "Выплаты без задержек"],
   },
   {
     id: "label",
@@ -291,7 +222,7 @@ export const SERVICES = [
 
 export const STATS = [
   { value: "60+", label: "Площадок" },
-  { value: "100%", label: "Роялти артисту" },
+  { value: "80%", label: "Роялти артисту" },
   { value: "24/7", label: "Поддержка" },
   { value: "2025", label: "Год основания" },
 ];
